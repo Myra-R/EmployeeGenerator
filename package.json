@@ -1,0 +1,23 @@
+{
+  "name": "employeegenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "employee.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myra-R/EmployeeGenerator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Myra-R/EmployeeGenerator/issues"
+  },
+  "homepage": "https://github.com/Myra-R/EmployeeGenerator#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "jest": "^26.6.0"
+  }
+}
