@@ -96,13 +96,13 @@ function employeeSelect(){
             inputManager();
         }
         if (choice === "Intern"){
-            inputInten();
+            inputIntern();
         }
         if (choice === "Engineer"){
             inputEngineer();
         }
         if (choice === "Cancel"){
-            rederToHtml();
+            renderToHtml();
         
         }
     })
