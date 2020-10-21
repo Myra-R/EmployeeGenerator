@@ -5,11 +5,147 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+//create output folder
 const OUTPUT_DIR = path.resolve(__dirname, "output");
+//this is the loc for the html resutls
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+var employeeArr=[];
+
+const html = [];
+
+const engineerQuestions = [{
+    type:"input",
+    message:"What is your name?",
+    name:"name"
+},
+{
+    type:"input",
+    message:"What is your id?",
+    name:"id"
+},
+{
+    type:"input",
+    message:"What is your email?",
+    name:"email"
+},
+{
+    type:"input",
+    message:"What is Github?",
+    name:"github"
+},
+]
+
+const internQuestions = [{
+    type:"input",
+    message:"What is your name?",
+    name:"name"
+},
+{
+    type:"input",
+    message:"What is your id?",
+    name:"id"
+},
+{
+    type:"input",
+    message:"What is your email?",
+    name:"email"
+},
+{
+    type:"input",
+    message:"What school did you attend?",
+    name:"school"
+},
+]
+
+const managerQuestions = [{
+    type:"input",
+    message:"What is your name?",
+    name:"name"
+},
+{
+    type:"input",
+    message:"What is your id?",
+    name:"id"
+},
+{
+    type:"input",
+    message:"What is your email?",
+    name:"email"
+},
+{
+    type:"input",
+    message:"What is office number?",
+    name:"officeNumber"
+},
+]
+
+const employeeType = [{
+    type: "checkbox",
+    message: "Which type of employee would you like to select?",
+    choices: ["Manager", "Intern", "Engineer", "Cancel"],
+    name: "choice"
+},]
+
+function employeeSelect(){
+    inquirer.prompt(employeeType).then(function(response){
+        const choice = response.choice[0];
+        if (choice === "Manager"){
+            inputManager();
+        }
+        if (choice === "Intern"){
+            inputInten();
+        }
+        if (choice === "Engineer"){
+            inputEngineer();
+        }
+        if (choice === "Cancel"){
+            rederToHtml();
+        
+        }
+    })
+}
+employeeSelect();
+
+    function inputManager(){
+        inquirer.prompt(managerQuestions).then(function(answers){
+            const manager = new Manager (answers.name, answers.id, answers.email, answers.officeNumber);
+            html.push(manager);
+            employeeSelect();
+        })
+
+    }
+
+    function inputIntern(){
+        inquirer.prompt(internQuestions).then(function(answers){
+            const intern = new Intern (answers.name, answers.id, answers.email, answers.school);
+            html.push(intern);
+            employeeSelect();
+        })
+
+    }
+
+    function inputEngineer(){
+        inquirer.prompt(engineerQuestions).then(function(answers){
+            const engineer = new Engineer (answers.name, answers.id, answers.email, answers.github);
+            html.push(engineer);
+            employeeSelect();
+        })
+
+    }
+
+    function renderToHtml(){
+        if(!fs.existsSync(OUTPUT_DIR)){
+            fs.mkdirSync(OUTPUT_DIR)
+        }
+        fs.writeFileSync(outputPath, render(html), "utf-8");
+        console.log("Success!")
+        console.log(html);
+    }
+
+//insideyour array you should have instances of your occupuation
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
